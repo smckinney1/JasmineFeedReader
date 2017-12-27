@@ -67,33 +67,33 @@ $(function() {
             loadFeed(0, done);
         });
 
-        // Ensure there are children of feedContainer (i.e., feed items)
         it('has at least one .entry element within the feed container', function() {
-            expect(feedContainer.children().length).not.toBe(0);
+            expect((feedContainer.find('.entry')).length).not.toBe(0);
         });
 
     });
 
     describe('New Feed Selection', function() {
 
-        // Initial HTML for feed
-        var initialFeedHtml = $('.feed').html();
+        var initialFeedHtml, 
+            newFeedHtml;
 
         // Since loadFeed is initially called with "0" passed in as the id,
         // passing in "1" ensures that a different feed is loaded.
         beforeEach(function(done) {
+            initialFeedHtml = $('.feed').html();
             loadFeed(1, done);
         });
 
         // Ensure that the new HTML for the feed is different
         it('updates the feed items on screen', function() {
-            var newFeedHtml = $('.feed').html();
+            newFeedHtml = $('.feed').html();
             expect(initialFeedHtml).not.toBe(newFeedHtml);
         });
 
         // Ensure that CSS-tricks HTML has been added to the DOM
         it('has correct HTML', function() {
-            var newFeedHtml = $('.feed').html();
+            newFeedHtml = $('.feed').html();
             expect(newFeedHtml).toContain('css-tricks');
         });
 
