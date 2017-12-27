@@ -75,26 +75,24 @@ $(function() {
 
     describe('New Feed Selection', function() {
 
-        var initialFeedHtml, 
-            newFeedHtml;
+        var initialFeedHtml;
 
-        // Since loadFeed is initially called with "0" passed in as the id,
-        // passing in "1" ensures that a different feed is loaded.
+        // Load the first RSS feed (Udacity)
         beforeEach(function(done) {
-            initialFeedHtml = $('.feed').html();
-            loadFeed(1, done);
+            loadFeed(0, function() {
+                initialFeedHtml = $('.feed').html();
+                done();
+            });
         });
 
         // Ensure that the new HTML for the feed is different
-        it('updates the feed items on screen', function() {
-            newFeedHtml = $('.feed').html();
-            expect(initialFeedHtml).not.toBe(newFeedHtml);
-        });
-
-        // Ensure that CSS-tricks HTML has been added to the DOM
-        it('has correct HTML', function() {
-            newFeedHtml = $('.feed').html();
-            expect(newFeedHtml).toContain('css-tricks');
+        // Passing in '1' ensures we are testing a different feed (CSS Tricks)
+        it('updates the feed items on screen', function(done) {
+            loadFeed(1, function() {
+                var newFeedHtml = $('.feed').html();
+                expect(initialFeedHtml).not.toBe(newFeedHtml);
+                done();
+            }); 
         });
 
      });
