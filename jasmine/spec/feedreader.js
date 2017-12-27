@@ -75,24 +75,23 @@ $(function() {
     });
 
     describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-        var indexToTest = 1,
-            initialFeedHtml = $('.feed').html();
 
+        // Initial HTML for feed
+        var initialFeedHtml = $('.feed').html();
+
+        // Since loadFeed is initially called with "0" passed in as the id,
+        // passing in "1" ensures that a different feed is loaded.
         beforeEach(function(done) {
-            var newFeedSelection = $('.feed-list li')[indexToTest];
-            newFeedSelection.click();
-            done();
+            loadFeed(1, done);
         });
 
-        it('updates the feed items', function() {
+        // Ensure that the new HTML for the feed is different
+        it('updates the feed items on screen', function() {
             var newFeedHtml = $('.feed').html();
             expect(initialFeedHtml).not.toBe(newFeedHtml);
         });
 
+        // Ensure that CSS-tricks HTML has been added to the DOM
         it('has correct HTML', function() {
             var newFeedHtml = $('.feed').html();
             expect(newFeedHtml).toContain('css-tricks');
